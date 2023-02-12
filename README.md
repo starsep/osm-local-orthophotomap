@@ -14,4 +14,9 @@ openssl.conf file is needed to ignore ssl issues with geoportal.gov.pl
 4. `make serveTiles` to run Python http server.
 5. JOSM tms settings: http://localhost:8000/{zoom}/{x}/{y}.png
 
-
+# Docker
+Change path to output volume.
+```
+docker build -t orto .
+docker run --rm -it -v /volume1/OSM/Orto2022:/output orto
+```
