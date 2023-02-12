@@ -1,7 +1,7 @@
 BBOX=52,20.7,52.4,21.4
-YEAR=2021
+YEAR=2022
 ORTHOMAP_ID=75063
-ZOOMS=1-21
+ZOOMS=1-20
 JOBS=24
 OUTPUT=output
 
@@ -11,8 +11,10 @@ downloadData: ortoUrls
 ortoUrls:
 	http GET 'http://mapy.geoportal.gov.pl/wss/service/PZGIK/ORTO/WFS/Skorowidze?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAMES=gugik:SkorowidzOrtofomapy${YEAR}&TYPENAME=gugik:SkorowidzOrtofomapy${YEAR}&SRSNAME=urn:ogc:def:crs:EPSG::4326&BBOX=${BBOX},urn:ogc:def:crs:EPSG::4326' | rg ${ORTHOMAP_ID} | sed -e "s/.*https/https/" -e "s/tif.*/tif/" | sort > ortoUrls
 
-generateTiles:
-	gdalbuildvrt ${OUTPUT}/merged.vrt ${OUTPUT}/*.tif 
+${OUTPUT}/merged.vrt:
+	gdalbuildvrt ${OUTPUT}/merged.vrt ${OUTPUT}/*.tif
+
+generateTiles: ${OUTPUT}/merged.vrt
 	mkdir -p ${OUTPUT}/tiles
 	rm -f ${OUTPUT}/tiles/leaflet.html
 	time gdal2tiles.py --zoom=${ZOOMS} --processes=${JOBS} --webviewer=leaflet --xyz --resume ${OUTPUT}/merged.vrt ${OUTPUT}/tiles
