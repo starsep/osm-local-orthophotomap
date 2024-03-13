@@ -8,8 +8,8 @@ openssl.conf file is needed to ignore ssl issues with geoportal.gov.pl
 
 # Usage
 1. Change variables in Makefile. 
-    - You can create output directory (output) or create symlink. (Alternatively change OUTPUT.) 
-    - Set up ZOMM. Notice that every extra ZOOM means 4x more tiles. Read more: https://wiki.openstreetmap.org/wiki/Zoom_levels
+    - You can create output directory (`mkdir output`) or create symlink. (Alternatively change OUTPUT.) 
+    - Set up ZOOM. Notice that every extra ZOOM means 4x more tiles. Read more: https://wiki.openstreetmap.org/wiki/Zoom_levels
     - Set up boundaries of orthophotomap. BBOX={south},{west},{north},{east}.
 2. Build docker image `docker build -t orto .`
 3. `docker run --rm -it -v ./output:/output orto downloadData` download orthophotomap sheets. For Warsaw 2021 there are 461 files (142 GB).
