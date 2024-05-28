@@ -1,9 +1,9 @@
-BBOX=52,20.7,52.4,21.4
-YEAR=2023
-ORTHOMAP_ID=78936
-ZOOMS=1-18
-JOBS=24
-OUTPUT=output
+BBOX?=52,20.7,52.4,21.4
+YEAR?=2023
+ORTHOMAP_ID?=78936
+ZOOMS?=1-18
+JOBS?=24
+OUTPUT?=output
 
 downloadData: ortoUrls
 	cat ortoUrls | parallel -j ${JOBS} OPENSSL_CONF=openssl.conf wget -P ${OUTPUT} {}
